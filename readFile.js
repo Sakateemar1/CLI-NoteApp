@@ -1,10 +1,16 @@
 const fs =require('fs');
 const chalk =require('chalk');
 
- fs.readFile('file2.txt', 'utf8', (err, data)=>{
+//function for reading a file  from the files folder
+
+function readFile(path){
+ fs.readFile(path, 'utf8', (err, data)=>{
     if (err){
         throw(chalk.red(err));
     }
-    console.log(chalk.green(data));
+    console.log(chalk.green.underline("This is your note:") ,data);
 
- })
+ });
+}
+readFile('./files_folder/file0.txt');
+

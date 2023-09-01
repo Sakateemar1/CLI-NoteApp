@@ -1,15 +1,19 @@
-const  {MongoClient,ServerApiVersion}= require ("mongodb");
-const chalk =require ("chalk");
+const  {MongoClient,ServerApiVersion}= require ("mongodb");//requiring mongodb
+const chalk =require ("chalk");// requiring chalk module
 
-const uri ="mongodb://0.0.0.0:27017/"
-const client = new MongoClient(uri);
+const uri ="mongodb://0.0.0.0:27017/"// connecting to the server
+const client = new MongoClient(uri);// Create a new mongo client
+
+const dbName ="noteAppdb2"
 
 //globally creating the database
-const db = client.db ("noteAppdb");
-//const collectionName= 'notes'
+const db = client.db ("noteAppdb2");
+
+//const collectionName= 'notes2'
 
 
 //function for creating the note collection
+
 const  createCollection = async (db, collectionName)=>{
     try{
         const collection = await db.collection(collectionName);
@@ -18,7 +22,9 @@ const  createCollection = async (db, collectionName)=>{
         console.error(chalk.red("Error creating collection"));
     }
 };
+
     //function for inserting document in the note collection
+    //export function insertDocument(){
     const insertDocument= async (db, collectionName, document)=>{
         const collection =db.collection(collectionName);
         try{
@@ -28,8 +34,9 @@ const  createCollection = async (db, collectionName)=>{
             console.error(chalk.red("Error inserting document"), err);
         }
     };
-
+    
     //function for listing all noted or reading a particular note
+    //export function findDocument(){
     const findDocument= async (db, collectionName, query)=> {
         try{
             await client.connect();
@@ -37,16 +44,17 @@ const  createCollection = async (db, collectionName)=>{
             const myDocument = await collection.find(query).toArray();
             console.log(chalk.green(myDocument));
         }catch (err){
-            console.err(chalk.red("Problem finding Document"));
+            console.error(chalk.red("Problem finding Document"),err);
         }finally{
             await client.close();
         }
     };
-            //findDocument(db, 'notes', {});//calling function find to search all available document
+       
+        //findDocument(db, 'notes', {});//calling function find to search all available document
             //findDocument(db, 'notes', {Tittle:'Mongodb'});//calling function find to search for a particular document
 
             //function for updating the document
-
+           // export function updateDocument(){
             const updateDocument= async(db, collectionName, selectionQuery,updatedDocument)=>{
                 try{
                     await client.connect();
@@ -59,9 +67,11 @@ const  createCollection = async (db, collectionName)=>{
                     await client.close();
                 }
             }
+        
                //updateDocument(db, 'notes',{Tittle:"Mongo database"}, {Tittle:"Mongodb"});//callin the function updateDocument
 
                //deleting the document
+              // export function deleteDocument(){
                const deleteDocument= async(db, collectionName, document )=>{
                 try{
                     await client.connect();
@@ -74,15 +84,14 @@ const  createCollection = async (db, collectionName)=>{
                     await client.close();
                 }
                } 
-              // deleteDocument(db,'notes', {Tittle:"Mongodb"});
+            
+               //deleteDocument(db,'notes', {Tittle:"Mongodb"});
+
+
+               
+        //connecting the client to the database
     
-    
-    
-    
-    
-               // connecting the client to the database
-    
-        const run = async()=>{
+            const run = async()=>{
            
             try{
                 await client.connect();
@@ -111,4 +120,37 @@ const  createCollection = async (db, collectionName)=>{
                 await client.close();
             }
         }
-                //run().catch(err => console.log(err))
+                run().catch(err => console.log(err)); // calling function run to create the collection and insert document in it
+
+
+   
+        //Using the Process Object (process.arv) in a fuction to perform the CRUD operations by parsing arguements from the command line.    
+            
+        // const run = async () => {
+        //     try{
+            
+        //         await client.connect();
+            
+        //         const args = process.argv.slice(2);// exclude first 2 elements (the node file and the filepath).
+        //         if (args[0] === "createCollection") { // if the arguement pasrsed from the command line  is "createCollection",
+        //         await createCollection(db, args[1]);// the second arguement will be the collection name. and it will create the Collection.
+        //         }else  if (args[0] === "findDocument"){ // if the  first arguement parsed from the command line is "findDocument"
+        //         findDocument(db, 'notes2', args[1]);// the second arguement parsed will  query(the query).
+        //         }else if (args[0] === "deleteDocument"){ // if the first arguement parsed from the command line is "deleteDocument".
+        //         deleteDocument(db,'notes2', args[1]);// the second arguement parsed will be field from the document to be deleted
+        //         }else if (args[0] === "updateDocument"){// if the first arguement parsed from the command line is "update}
+        //         updateDocument(db, 'notes2', args[1], args[2])// this will take 2 arguements, the field to be updated, and the updated document.
+        //         }else if (args[0] === "insertDocument"){// if the first arguement parsed from the command line is "insertDocument"
+        //         insertDocument(db, 'note2', args[1], args[2]);// it takes 2  arguements, the Tittle and the Content.
+        //         }
+        //         }catch (err){
+        //             console.error(Error);
+        //         }finally{
+        //             await client.close();
+        //         }
+            
+        //     }
+        //      run (). catch(error=> console.log(error));
+            
+            
+            

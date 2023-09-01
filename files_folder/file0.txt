@@ -1,0 +1,5 @@
+{
+    Tittle:"Javascript",
+Body:"Javascript is a scripting language used to develop web pages."}
+Javascript is used as a backend and front end programming language.
+Javascript is used as a backend and front end programming language.
