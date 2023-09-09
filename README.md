@@ -1,4 +1,5 @@
 Note App
+
 This is a command-line note app, built with node.js (runtime environment).
 Its features are as follows:  "add", "read", List, "delete."
 
